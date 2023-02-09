@@ -19,7 +19,7 @@ namespace my {
     // map is not supposed to modify the input vector, but return a new, modified vector
     template<typename T, typename ResType>
     std::vector<ResType> map(const std::vector<T>& items,
-                             std::function<const ResType(const T&)> mapper) {
+                             std::function<ResType(const T&)> mapper) {
 
         std::vector<ResType> res_vec(items.size());
 
