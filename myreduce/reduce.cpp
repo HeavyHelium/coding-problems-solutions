@@ -50,7 +50,7 @@ namespace my {
     ResType reduce(const std::vector<T>& items,
                    std::function<ResType(const T& left,
                                          const T& right)> func,
-                                 ResType initial_value) {
+                   ResType initial_value) {
 
         for(const T& item : items) {
             initial_value = func(initial_value, item);
