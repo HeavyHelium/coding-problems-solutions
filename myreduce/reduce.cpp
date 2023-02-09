@@ -43,7 +43,7 @@ namespace my {
                 res.push_back(item);
             }
         }
-        return res;
+        return std::move(res);
     }
 
     template<typename T, typename ResType>
