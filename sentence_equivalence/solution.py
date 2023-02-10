@@ -1,3 +1,13 @@
+def wrapper(func): 
+        def inner(self, sentence1, sentence2): 
+            left = sentence1.split()
+            right = sentence2.split()
+            if len(left) != len(right): 
+                raise ValueError("Sentences must be of equal length")
+            return func(self, sentence1, sentence2)
+                
+        return inner
+
 
 class graph: 
     def __init__(self) -> None: 
@@ -13,14 +23,14 @@ class graph:
             
             self._adj[word].add(lst[1 - i])
 
+    
+    @wrapper
     def are_equivalent(self, 
                        sentence1: str, 
                        sentence2: str) -> bool:
         
         left = sentence1.split()
         right = sentence2.split()
-        if len(left) != len(right): 
-            raise ValueError("Sentences must be of equal length")
 
         for word1, word2 in zip(left, right):
             if word1 == word2: 
@@ -50,6 +60,7 @@ class graph:
         
         return False
 
+    @wrapper
     def are_equivalent1(self, 
                         sentence1: str, 
                         sentence2: str) -> bool:
@@ -57,9 +68,6 @@ class graph:
         left = sentence1.split()
         right = sentence2.split()
 
-        if len(left) != len(right):
-            raise ValueError("Sentences must be of equal length")
-        
         for word1, word2 in zip(left, right):
             if word1 == word2: 
                 continue
