@@ -49,9 +49,8 @@ between(A, B, C) :-
     between(A1, B, C).
 
 
-gen_strobogrammatic(N, Res) :-
+gen_strobogrammatic(N, M) :-
     LB = 10 ** (N - 1),
     UB = 10 ** N - 1,
     between(LB, UB, M),
-    is_strobogrammatic(M),
-    Res = M.
+    is_strobogrammatic(M).
