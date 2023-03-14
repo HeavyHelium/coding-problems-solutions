@@ -4,6 +4,7 @@
 #include <string>
 #include <queue>
 #include <cstddef>
+#include <stdexcept>
 
 struct Node {
     // the inner nodes have data '$'(just a fixed value)
@@ -31,8 +32,12 @@ using FreqMap = std::unordered_map<char, std::size_t>;
 
 struct huffman_tree { 
 
-    using Coder = std::unordered_map<char, std::string>;
-    using MinQueue = std::priority_queue<Node*, std::vector<Node*>, comparator>;
+    using Coder = std::unordered_map<char, 
+                                     std::string>;
+    
+    using MinQueue = std::priority_queue<Node*, 
+                                         std::vector<Node*>, 
+                                         comparator>;
 
     huffman_tree() = default;
 
@@ -72,7 +77,9 @@ struct huffman_tree {
 
     friend std::ostream& operator<<(std::ostream& os,
                                     const huffman_tree& T) {
-        for(const std::pair<char, std::string>& elem: T.code_table) {
+        for(const std::pair<char, 
+                            std::string>& elem: T.code_table) {
+        
             os << elem.first << ": " << elem.second << '\n';
         }
         return os;
@@ -89,10 +96,14 @@ private:
     void decode_helper(const Node* root,
                        const char*& suffix,
                        std::string& res) {
+        
         if(root->data != '$') {
+        
             res += root->data;
             if(*suffix) {
-                decode_helper(this->root, suffix, res);
+                decode_helper(this->root, 
+                              suffix, 
+                              res);
             }
             return;
         }
@@ -124,7 +135,7 @@ private:
             fill_code(root->left, code);
             code.pop_back();
 
-            code.push_back('1'); // left edges are labeled with 0
+            code.push_back('1'); // right edges are labeled with 1
             fill_code(root->right, code);
             code.pop_back();
         }
@@ -175,9 +186,9 @@ private:
             q.pop();
             
             q.push(new Node{ '$',
-                               left->value + right->value,
-                                     left,
-                                     right });
+                              left->value + right->value,
+                              left,
+                              right });
         }
 
         root = q.top();
