@@ -156,10 +156,10 @@ private:
         MinQueue q;
         
         for(const std::pair<char, std::size_t>& p : freq) { 
-            q.push(new Node{p.first,
-                              p.second,
-                               nullptr,
-                                    nullptr });
+            q.push(new Node{ p.first,
+                             p.second,
+                             nullptr,
+                             nullptr });
         }
         
         return q;
