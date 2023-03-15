@@ -19,9 +19,9 @@ struct Node {
     }
 };
 
-class comparator {
+class Comparator {
 public:
-    bool operator()(const Node* lhs, const Node* rhs) {
+    bool operator()(const Node* lhs, const Node* rhs) const {
         return *lhs > *rhs;
     }
 };
@@ -30,34 +30,36 @@ using FreqMap = std::unordered_map<char, std::size_t>;
 
 
 
-struct huffman_tree { 
+struct HuffmanTree { 
 
     using Coder = std::unordered_map<char, 
                                      std::string>;
     
     using MinQueue = std::priority_queue<Node*, 
                                          std::vector<Node*>, 
-                                         comparator>;
+                                         Comparator>;
 
-    huffman_tree() = default;
+    HuffmanTree() = default;
 
-    huffman_tree(const huffman_tree& other) = delete;
-    huffman_tree& operator=(const huffman_tree& other) = delete;
+    HuffmanTree(const HuffmanTree& other) = delete;
+    HuffmanTree& operator=(const HuffmanTree& other) = delete;
 
-    huffman_tree(const FreqMap& freqs) {
+    HuffmanTree(const FreqMap& freqs) {
         freq = freqs;
         build();
     }
 
-    huffman_tree(const std::string& text) {
+    HuffmanTree(const std::string& text) {
         freq = text_to_freq(text);
         build();
     }
 
     std::string encode(const std::string& text) const {
         std::string res;
+
         for(char ch: text) {
             auto it = code_table.find(ch);
+        
             if(it == code_table.end()) {
                 throw std::runtime_error("Invalid code!");
             } else {
@@ -67,7 +69,7 @@ struct huffman_tree {
         return res;
     }
 
-    std::string decode(const std::string& text) {
+    std::string decode(const std::string& text) const {
         const char* suffix = text.c_str();
         std::string res;
 
@@ -76,7 +78,7 @@ struct huffman_tree {
     }
 
     friend std::ostream& operator<<(std::ostream& os,
-                                    const huffman_tree& T) {
+                                    const HuffmanTree& T) {
         for(const std::pair<char, 
                             std::string>& elem: T.code_table) {
         
@@ -86,7 +88,7 @@ struct huffman_tree {
     }
 
 
-    ~huffman_tree() { 
+    ~HuffmanTree() { 
         free_tree(root);    
     }
 
@@ -95,7 +97,7 @@ private:
 
     void decode_helper(const Node* root,
                        const char*& suffix,
-                       std::string& res) {
+                       std::string& res) const {
         
         if(root->data != '$') {
         
@@ -213,13 +215,13 @@ private:
 
 
 int main() { 
-    huffman_tree tr("mssssiiiipp");
+    HuffmanTree tr("mssssiiiipp");
     std::cout << tr << std::endl;
 
     FreqMap f{{'a', 5}, {'b', 9}, {'c', 12},
               {'d', 13}, {'e', 16}, {'f', 45}};
 
-    huffman_tree t2(f);
+    HuffmanTree t2(f);
 
     std::cout << t2.decode(t2.encode("cdef")) << std::endl;
 
