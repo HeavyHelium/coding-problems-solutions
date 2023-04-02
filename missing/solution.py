@@ -1,6 +1,6 @@
 import random
 
-def print_missing(lst: list[int], n_range): 
+def print_missing(lst: list[int], n_range) -> list[int]: 
     n: int = len(lst)
     res: list[int] = [] # this is used for testing, 
                         # does not affect the space complexity
@@ -37,7 +37,7 @@ def print_missing(lst: list[int], n_range):
     return res    
 
 
-def bogo_check(lst: list[int], n_range: int): 
+def bogo_check(lst: list[int], n_range: int) -> list[int]: 
     missing: list[int] = []
     for i in range(0, n_range):
         if i not in lst:
