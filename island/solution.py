@@ -9,20 +9,6 @@ def find_root(matrix: list[list[int]]) -> tuple[int, int]:
             
     return -1, -1
 
-def has_water_side(root, grid):
-    for direction in directions:
-        new_row = root[0] + direction[0]
-        new_col = root[1] + direction[1]
-
-        if new_row < 0 or \
-           new_row >= len(grid) or \
-           new_col < 0 or \
-           new_col >= len(grid[0]) or \
-           grid[new_row][new_col] == 0:
-            return True
-
-    return False
-
 def find_perimiter_helper(grid, root, visited): 
     visited[root[0]][root[1]] = True
     perimeter = 0
