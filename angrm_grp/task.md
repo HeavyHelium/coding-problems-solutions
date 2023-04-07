@@ -1,8 +1,8 @@
 This question was asked by Ribinhood. 
 
-Given an array od string, group anagrams together.  
+Given an array of strings, group anagrams together.  
 
-For example,  given the following atrray:   
+For example,  given the following array:   
 ```
 'eat', 'ate', 'apt', 'pat', tea, 'now'
 ```
