@@ -32,9 +32,12 @@ struct LinkedList {
             current = current->next;
             ++pos;
         }
+        if(current == nullptr || current->next == nullptr) {
+            return;
+        }
         Node* to_delete = current->next;
         current->next = to_delete->next;
-        
+
         delete to_delete;
         --length;
 
